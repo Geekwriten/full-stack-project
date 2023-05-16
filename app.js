@@ -5,8 +5,9 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useMongoClient: true});
 // Connected
 mongoose.connection.on('connected', () => {
   console.log('Connected to Database '+config.database);
