@@ -32,7 +32,9 @@ mongoose.connect(db.mongoURI, {
 const app = express();
 
 const users = require('./routes/users')
-const Manga = require('./routes/Manga')
+const Manga = require('./routes/Manga');
+const { scrypt } = require('crypto');
+const { Script } = require('vm');
 
 const port = process.env.PORT || 80;
 
