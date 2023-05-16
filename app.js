@@ -7,15 +7,27 @@ const mongoose = require('mongoose');
 const config = require('./config/database');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-mongoose.connect(config.database, { useMongoClient: true});
-// Connected
-mongoose.connection.on('connected', () => {
-  console.log('Connected to Database '+config.database);
-});
-//error connected
-mongoose.connection.on('error', (err) => {
-  console.log('Database error '+err);
-});
+// Connect To Database (NEW) But not working!!!!!!!!!! (because of secret in db.js!!!!!)
+const db = require('./config/database');
+// Map global promise - get rid of warning
+mongoose.Promise = global.Promise;
+// Connect to mongoose
+mongoose.connect(db.mongoURI, {
+    useMongoClient: true
+})
+.then(() => console.log('MongoDB Connected...'))
+.catch(err => console.log(err));
+
+
+// mongoose.connect(config.database, { useMongoClient: true});
+// // Connected
+// mongoose.connection.on('connected', () => {
+//   console.log('Connected to Database '+config.database);
+// });
+// //error connected
+// mongoose.connection.on('error', (err) => {
+//   console.log('Database error '+err);
+// });
 
 const app = express();
 
